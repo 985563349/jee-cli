@@ -1,13 +1,45 @@
 // service.js
 module.exports = function (name) {
   return `
-    import { request } from 'umi'
+    import { request } from '@/utils';
 
-    export const get${name}s = () => {
-      require({
+    export type ${name}Entity = {
+      id: string;
+    };
+
+    export type ${name}Query = API.PageParams & {
+      id?: string;
+    };
+
+    export const get${name}s = (params: ${name}Query) => {
+      return request<${name}Entity[]>({
         url: '',
         method: 'GET',
-      })
-    }
+        params,
+      });
+    };
+
+    export const create${name} = (data: Partial<${name}Entity>) => {
+      return request({
+        url: '',
+        method: 'POST',
+        data,
+      });
+    };
+
+    export const update${name} = (id: string, data: Partial<${name}Entity>) => {
+      return request({
+        url: '',
+        method: 'PATCH',
+        data,
+      });
+    };
+
+    export const delete${name} = (id: string) => {
+      return request({
+        url: '',
+        method: 'DELETE',
+      });
+    };
   `;
 };

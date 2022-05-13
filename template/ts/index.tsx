@@ -1,16 +1,139 @@
 // index.js
 module.exports = function (name) {
   return `
-    import { useState } from 'react';
+  import React, { useRef, useState } from 'react';
+  import { Button, Modal, message, Switch } from 'antd';
+  import { PlusOutlined } from '@ant-design/icons';
+  import { PageContainer } from '@ant-design/pro-layout';
+  import ProTable from '@ant-design/pro-table';
+  import type { ProColumns, ActionType } from '@ant-design/pro-table';
+  import moment from 'moment';
 
-    const ${name} = () => {
-      return (
-        <div>
-          <h1>This os ${name} page.</h1>
-        </div>
-      )
+  import { dataFormat, dateTimeFormat } from '@/utils';
+  import { get${name}s, create${name}, update${name}, delete${name} } from './service';
+  import type { ${name}Entity, ${name}Query } from './service';
+
+  const ${name}: React.FC = () => {
+    const actionRef = useRef<ActionType>();
+
+    const [visible, setVisible] = useState(false);
+    const [${name}Data, set${name}Data] = useState<${name}Entity>();
+  
+    const handleOperate = (record?: any) => {
+      setVisible(true);
+      set${name}Data(record);
     };
 
-    export default ${name};
+    const handleConfirm = async ({ id, ...values }: any) => {
+      if (id) {
+        await update${name}(id, values);
+        message.success('编辑成功！');
+      } else {
+        await create${name}(values);
+        message.success('新增成功！');
+      }
+      setVisible(false);
+      actionRef.current?.reload();
+    };
+
+    const handleChangeStatus = async (id: string, enable: boolean) => {
+      await update${name}(id, { enable });
+      message.success('编辑成功！');
+      actionRef.current?.reload();
+    };
+
+    const handleDelete = (id: string) => {
+      Modal.confirm({
+        title: '确认删除？',
+        okType: 'danger',
+        cancelText: '取消',
+        okText: '确定',
+        onOk: async () => {
+          await delete${name}(id);
+          message.success('删除成功!');
+          actionRef.current?.reload();
+        },
+      });
+    };
+
+    const columns: ProColumns<${name}Entity>[] = [
+      {
+        title: 'id',
+        dataIndex: 'id',
+      },
+      {
+        title: '名称',
+        dataIndex: 'name',
+      },
+      {
+        title: '启用状态',
+        width: 100,
+        dataIndex: 'enable',
+        valueEnum: { true: { text: '启用' }, false: { text: '禁用' } },
+        render: (_, { id, enable }) => (
+          <Switch
+            checked={enable}
+            checkedChildren={'启用'}
+            unCheckedChildren={'禁用'}
+            onChange={(checked) => handleChangeStatus(id, checked)}
+          />
+        ),
+      },
+      {
+        title: '创建时间',
+        valueType: 'dateTimeRange',
+        dataIndex: 'createTime',
+        render: (_, { createTime }) => dateTimeFormat(createTime),
+        search: {
+          transform: (value: string[]) => ({
+            start: moment(value?.[0]).valueOf(),
+            end: moment(value?.[1]).valueOf(),
+          }),
+        },
+      },
+      {
+        title: '操作',
+        width: 120,
+        dataIndex: 'option',
+        valueType: 'option',
+        render: (_, record) => [
+          <a key="config" onClick={() => handleOperate(record)}>
+            编辑
+          </a>,
+          <a key="delete" onClick={() => handleDelete(record.id)}>
+            删除
+          </a>,
+        ],
+      },
+    ];
+
+    return (
+      <PageContainer>
+          <ProTable<${name}Entity, ${name}Query>
+            actionRef={actionRef}
+            rowKey="id"
+            search={{
+              labelWidth: 0,
+              span: 6,
+            }}
+            toolBarRender={() => [
+              <Button type="primary" key="primary" onClick={() => handleOperate()}>
+                <PlusOutlined />
+                新建
+              </Button>,
+            ]}
+            request={async (params) => {
+              const queryParams = dataFormat(params).valueOf();
+              const data = await get${name}s(queryParams);
+              return data;
+            }}
+            columns={columns}
+            pagination={{ showQuickJumper: true }}
+          />
+      </PageContainer>
+    );
+  };
+
+  export default ${name};
   `;
 };
