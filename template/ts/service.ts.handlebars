@@ -1,40 +1,36 @@
-import { request } from '@/utils';
+import { request } from '@umijs/max';
 
-export type {{name}}Entity = {
+export type {{name}}Model = {
   id: string;
 };
 
-export type {{name}}Query = API.PageParams & {
+export type {{name}}Query = {
   id?: string;
 };
 
-export const get{{name}}s = (params: {{name}}Query) => {
-  return request<{{name}}Entity[]>({
-    url: '',
+export const fetch{{name}}List = (params: {{name}}Query) => {
+  return request<{data: {{name}}Model[]}>('', {
     method: 'GET',
     params,
   });
 };
 
-export const create{{name}} = (data: Partial<{{name}}Entity>) => {
-  return request({
-    url: '',
+export const create{{name}} = (data: Partial<{{name}}Model>) => {
+  return request('', {
     method: 'POST',
     data,
   });
 };
 
-export const update{{name}} = (id: string, data: Partial<{{name}}Entity>) => {
-  return request({
-    url: '',
+export const update{{name}} = (id: string, data: Partial<{{name}}Model>) => {
+  return request('', {
     method: 'PATCH',
     data,
   });
 };
 
 export const delete{{name}} = (id: string) => {
-  return request({
-    url: '',
+  return request('', {
     method: 'DELETE',
   });
 };

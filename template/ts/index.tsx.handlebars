@@ -1,22 +1,19 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button, Modal, message, Switch } from 'antd';
+import { PageContainer, ProTable } from '@ant-design/pro-components'
+import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { PlusOutlined } from '@ant-design/icons';
-import { PageContainer } from '@ant-design/pro-layout';
-import ProTable from '@ant-design/pro-table';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
-import moment from 'moment';
 
-import { dataFormat, dateTimeFormat } from '@/utils';
-import { get{{name}}s, create{{name}}, update{{name}}, delete{{name}} } from './service';
-import type { {{name}}Entity, {{name}}Query } from './service';
+import { fetch{{name}}List, create{{name}}, update{{name}}, delete{{name}} } from './service';
+import type { {{name}}Model, {{name}}Query } from './service';
 
 const {{name}}: React.FC = () => {
   const actionRef = useRef<ActionType>();
 
   const [visible, setVisible] = useState(false);
-  const [{{name}}Data, set{{name}}Data] = useState<{{name}}Entity>();
+  const [{{name}}Data, set{{name}}Data] = useState<{{name}}Model>();
 
-  const handleOperate = (record?: any) => {
+  const handleOperate = (record?: {{name}}Model) => {
     setVisible(true);
     set{{name}}Data(record);
   };
@@ -39,7 +36,7 @@ const {{name}}: React.FC = () => {
     actionRef.current?.reload();
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = ({ id }: {{name}}Model) => {
     Modal.confirm({
       title: '确认删除？',
       okType: 'danger',
@@ -53,7 +50,7 @@ const {{name}}: React.FC = () => {
     });
   };
 
-  const columns: ProColumns<{{name}}Entity>[] = [
+  const columns: ProColumns<{{name}}Model>[] = [
     {
       title: 'id',
       dataIndex: 'id',
@@ -80,13 +77,6 @@ const {{name}}: React.FC = () => {
       title: '创建时间',
       valueType: 'dateTimeRange',
       dataIndex: 'createTime',
-      render: (_, { createTime }) => dateTimeFormat(createTime),
-      search: {
-        transform: (value: string[]) => ({
-          start: moment(value?.[0]).valueOf(),
-          end: moment(value?.[1]).valueOf(),
-        }),
-      },
     },
     {
       title: '操作',
@@ -97,7 +87,7 @@ const {{name}}: React.FC = () => {
         <a key="config" onClick={() => handleOperate(record)}>
           编辑
         </a>,
-        <a key="delete" onClick={() => handleDelete(record.id)}>
+        <a key="delete" onClick={() => handleDelete(record)}>
           删除
         </a>,
       ],
@@ -106,7 +96,7 @@ const {{name}}: React.FC = () => {
 
   return (
     <PageContainer>
-        <ProTable<{{name}}Entity, {{name}}Query>
+        <ProTable<{{name}}Model, {{name}}Query>
           actionRef={actionRef}
           rowKey="id"
           search=\{{
@@ -119,11 +109,7 @@ const {{name}}: React.FC = () => {
               新建
             </Button>,
           ]}
-          request={async (params) => {
-            const queryParams = dataFormat(params).valueOf();
-            const data = await get{{name}}s(queryParams);
-            return data;
-          }}
+          request={fetch{{name}}List}
           columns={columns}
           pagination=\{{ showQuickJumper: true }}
         />
