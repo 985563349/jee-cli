@@ -1,6 +1,6 @@
 # code-generate
 
-用于公司项目代码生成，避免反复 copy。
+用于 Ant Design Pro 项目代码生成，避免反复 copy。
 
 #### 使用
 
@@ -19,5 +19,4 @@ jee create <name> <path> [options]
 
 | Option  | Description        |
 | ------- | ------------------ |
-| -- type | 模板类型，别名：-t |
-
+| --force | 覆盖目录，别名：-f |

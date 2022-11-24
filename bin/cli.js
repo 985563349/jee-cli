@@ -9,7 +9,6 @@ program
   .command('create <name> <path>')
   .description('create template')
   .option('-f --force', 'overwrite targe directory if it exist')
-  .option('-t --type <type>', 'write template type')
   .action((name, path, option) => {
     create(name, path, option);
   });
