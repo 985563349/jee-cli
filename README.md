@@ -1,8 +1,16 @@
 # Jee CLI
 
-用于生成 Ant Design Pro 项目代码，避免反复 copy。
+用于生成 Ant Design Pro 项目列表页代码，避免反复 copy。
 
-#### 使用
+## 📦 安装
+
+Using npm:
+
+```bash
+npm install jee-cli -g
+```
+
+## 🔨 使用
 
 ```shell
 jee create <name> <path> [options]
