@@ -1,17 +1,29 @@
 {
-  "name": "code-generate",
-  "version": "1.0.0",
-  "description": "code generate",
+  "name": "jee-cli",
+  "version": "0.0.1-beta",
+  "description": "jee-cli",
   "main": "index.js",
   "bin": {
     "jee": "bin/cli.js"
   },
+  "files": [
+    "bin",
+    "lib",
+    "template"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/985563349/jee-cli.git"
+  },
+  "keywords": [
+    "jee-cli"
+  ],
+  "author": "Jee",
+  "license": "MIT",
+  "homepage": "https://github.com/985563349/jee-cli#readme",
   "dependencies": {
     "commander": "^9.2.0",
     "fs-extra": "^10.1.0",

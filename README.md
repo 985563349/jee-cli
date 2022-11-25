@@ -1,6 +1,6 @@
-# code-generate
+# Jee CLI
 
-用于 Ant Design Pro 项目代码生成，避免反复 copy。
+用于生成 Ant Design Pro 项目代码，避免反复 copy。
 
 #### 使用
 
