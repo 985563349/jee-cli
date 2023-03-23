@@ -1,6 +1,6 @@
 {
   "name": "jee-cli",
-  "version": "0.0.1-beta",
+  "version": "0.0.1",
   "description": "jee-cli",
   "main": "index.js",
   "bin": {
