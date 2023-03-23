@@ -1,0 +1,41 @@
+import { useEffect } from 'react';
+import { ModalForm, ProForm, ProFormText } from '@ant-design/pro-components';
+
+export type {{name}}ModalFormData = {
+  id?: number;
+  name: string;
+};
+
+export type {{name}}ModalProps = {
+  open?: boolean;
+  initialValues?: {{name}}ModalFormData;
+  onConfirm?: (formData: {{name}}ModalFormData) => Promise<any>;
+  onCancel?: () => void;
+};
+
+const {{name}}Modal: React.FC<{{name}}ModalProps> = (props) => {
+  const { open, initialValues, onConfirm, onCancel } = props;
+
+  const [form] = ProForm.useForm();
+
+  useEffect(() => {
+    if (open) form.resetFields();
+  }, [open, form]);
+
+  return (
+    <ModalForm<{{name}}ModalFormData>
+      form={form}
+      open={open}
+      title={initialValues?.id ? '编辑' : '新建'}
+      initialValues={initialValues ?? { enabled: true }}
+      onFinish={onConfirm}
+      modalProps=\{{ forceRender: true, onCancel }}
+    >
+      <ProFormText label="id" name="label" hidden />
+
+      <ProFormText label="名称" name="name" />
+    </ModalForm>
+  );
+};
+
+export default {{name}}Modal;

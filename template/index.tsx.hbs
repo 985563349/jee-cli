@@ -7,26 +7,29 @@ import { PlusOutlined } from '@ant-design/icons';
 import { fetch{{name}}List, create{{name}}, update{{name}}, delete{{name}} } from './service';
 import type { {{name}}Model, {{name}}Query } from './service';
 
+import Modal from './Model';
+import type { {{name}}ModalFormData } from './Model'
+
 const {{name}}: React.FC = () => {
   const actionRef = useRef<ActionType>();
 
-  const [visible, setVisible] = useState(false);
+  const [open, setOpen] = useState(false);
   const [{{name}}Data, set{{name}}Data] = useState<{{name}}Model>();
 
   const handleOperate = (record?: {{name}}Model) => {
-    setVisible(true);
+    setOpen(true);
     set{{name}}Data(record);
   };
 
-  const handleConfirm = async ({ id, ...values }: any) => {
+  const handleConfirm = async ({ id, ...values }: {{name}}ModalFormData) => {
     if (id) {
       await update{{name}}(id, values);
       message.success('编辑成功！');
     } else {
       await create{{name}}(values);
-      message.success('新增成功！');
+      message.success('新建成功！');
     }
-    setVisible(false);
+    setOpen(false);
     actionRef.current?.reload();
   };
 
@@ -96,23 +99,30 @@ const {{name}}: React.FC = () => {
 
   return (
     <PageContainer>
-        <ProTable<{{name}}Model, {{name}}Query>
-          actionRef={actionRef}
-          rowKey="id"
-          search=\{{
-            labelWidth: 0,
-            span: 6,
-          }}
-          toolBarRender={() => [
-            <Button type="primary" key="primary" onClick={() => handleOperate()}>
-              <PlusOutlined />
-              新建
-            </Button>,
-          ]}
-          request={fetch{{name}}List}
-          columns={columns}
-          pagination=\{{ showQuickJumper: true }}
-        />
+      <ProTable<{{name}}Model, {{name}}Query>
+        actionRef={actionRef}
+        rowKey="id"
+        search=\{{
+          labelWidth: 0,
+          span: 6,
+        }}
+        toolBarRender={() => [
+          <Button type="primary" key="primary" onClick={() => handleOperate()}>
+            <PlusOutlined />
+            新建
+          </Button>,
+        ]}
+        request={fetch{{name}}List}
+        columns={columns}
+        pagination=\{{ showQuickJumper: true }}
+      />
+
+      <Modal
+        open={open}
+        initialValues={ {{~name}}Data}
+        onConfirm={handleConfirm}
+        onCancel={() => setOpen(false)}
+      />
     </PageContainer>
   );
 };
