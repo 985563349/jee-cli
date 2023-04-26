@@ -13,7 +13,9 @@ npm install koku-cli -g
 ## 🔨 使用
 
 ```shell
-ko create <name> <path> [options]
+ko generate <name> <path> [options]
+# or
+ko g <name> <path> [options]
 ```
 
 **Arguments**

@@ -6,8 +6,9 @@ const create = require('../lib/create');
 program.version(`v${require('../package.json').version}`).usage('<command> [option]');
 
 program
-  .command('create <name> <path>')
-  .description('create template')
+  .command('generate <name> <path>')
+  .alias('g')
+  .description('generate template')
   .option('-f --force', 'overwrite targe directory if it exist')
   .action((name, path, option) => {
     create(name, path, option);
