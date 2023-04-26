@@ -7,8 +7,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { fetch{{name}}List, create{{name}}, update{{name}}, delete{{name}} } from './service';
 import type { {{name}}Model, {{name}}Query } from './service';
 
-import Modal from './Model';
-import type { {{name}}ModalFormData } from './Model'
+import {{name}}Modal from './{{name}}Model';
+import type { {{name}}ModalFormData } from './{{name}}Model'
 
 const {{name}}: React.FC = () => {
   const actionRef = useRef<ActionType>();
@@ -117,7 +117,7 @@ const {{name}}: React.FC = () => {
         pagination=\{{ showQuickJumper: true }}
       />
 
-      <Modal
+      <{{name}}Modal
         open={open}
         initialValues={ {{~name}}Data}
         onConfirm={handleConfirm}
