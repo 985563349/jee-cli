@@ -1,4 +1,4 @@
-# Jee CLI
+# Koku CLI
 
 用于生成 Ant Design Pro 项目列表页代码，避免反复 copy。
 
@@ -7,13 +7,13 @@
 Using npm:
 
 ```bash
-npm install jee-cli -g
+npm install koku-cli -g
 ```
 
 ## 🔨 使用
 
 ```shell
-jee create <name> <path> [options]
+ko create <name> <path> [options]
 ```
 
 **Arguments**

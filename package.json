@@ -1,10 +1,10 @@
 {
-  "name": "jee-cli",
+  "name": "koku-cli",
   "version": "0.0.1",
-  "description": "jee-cli",
+  "description": "koku-cli",
   "main": "index.js",
   "bin": {
-    "jee": "bin/cli.js"
+    "ko": "bin/cli.js"
   },
   "files": [
     "bin",
@@ -19,7 +19,7 @@
     "url": "git+https://github.com/985563349/jee-cli.git"
   },
   "keywords": [
-    "jee-cli"
+    "koku-cli"
   ],
   "author": "Jee",
   "license": "MIT",
@@ -28,7 +28,6 @@
     "commander": "^9.2.0",
     "fs-extra": "^10.1.0",
     "handlebars": "^4.7.7",
-    "inquirer": "^8.2.4",
-    "lodash": "^4.17.21"
+    "inquirer": "^8.2.4"
   }
 }

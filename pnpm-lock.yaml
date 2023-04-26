@@ -5,14 +5,12 @@ specifiers:
   fs-extra: ^10.1.0
   handlebars: ^4.7.7
   inquirer: ^8.2.4
-  lodash: ^4.17.21
 
 dependencies:
   commander: 9.2.0
   fs-extra: 10.1.0
   handlebars: 4.7.7
   inquirer: 8.2.4
-  lodash: 4.17.21
 
 packages:
 
